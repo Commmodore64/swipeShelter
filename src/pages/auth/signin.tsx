@@ -9,9 +9,10 @@ import { z } from "zod";
 // Components
 import SigninComponent from "~/components/auth/signin";
 import { Button } from "~/components/ui/button";
-import { prisma } from "~/server/db";
+import { api } from "~/utils/api";
 
 const Signin: NextPage = () => {
+  const mutation = api.useCustomAuth.form.useMutation();
   const [personalData, setPersonalData] = useState({
     name: "",
     lastName: "",
@@ -22,9 +23,9 @@ const Signin: NextPage = () => {
 
   //Validate Schema
   const validationSchema = z.object({
-    name: z.string().nonempty(),
-    lastName: z.string().nonempty(),
-    phone: z.string().nonempty(),
+    name: z.string().min(3).max(255),
+    lastName: z.string().min(3).max(255),
+    phone: z.string().min(3).max(255),
     email: z.string().email(),
     password: z
       .string()
@@ -40,26 +41,22 @@ const Signin: NextPage = () => {
 
   const handleSignIn = () => {
     console.log(personalData);
-    //async () => {
-    try {
-      const validatedData = validationSchema.parse(personalData);
-      console.log("Datos validados:", validatedData);
-      // Crear usuario con Prisma
-      const createdUser = prisma.user.create({
-        data: {
-          name: personalData.name,
-          lastName: personalData.lastName,
-          phone: personalData.phone,
-          email: personalData.email,
-          password: personalData.password,
-        },
-      });
-      console.log("Usuario creado con éxito:", createdUser);
-    } catch (error) {
-      //toast.error("Datos incorrectos");
+    (async () => {
+      try {
+        const validatedData = validationSchema.parse(personalData);
+        console.log("Datos validados:", validatedData);
+        // Crear usuario con Prisma
+        const response = await mutation.mutateAsync(validatedData);
+        if (response.status !== 201) {
+          console.log("Respuesta del servidor:", response);
+        }
+      } catch (error) {
+        //toast.error("Datos incorrectos");
+        console.log(error);
+      }
+    })().catch((error) => {
       console.log(error);
-    }
-    //};
+    });
   };
   return (
     <>

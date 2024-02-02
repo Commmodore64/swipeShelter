@@ -117,7 +117,7 @@ const Signin: FC<formProps> = ({ data, setData }) => {
             <div className="mt-5 flex flex-row items-center justify-center">
               <p className="text-white">Already have an account?</p>
               <a
-                href=""
+                href="/auth/login"
                 className="flex justify-center pl-2 font-semibold text-white"
               >
                 Log In
