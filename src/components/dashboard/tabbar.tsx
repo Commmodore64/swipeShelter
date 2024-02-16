@@ -16,12 +16,12 @@ const TabBar: FC = () => {
           <div className="via-opacity-35 h-full w-full bg-gradient-to-r from-gray-500 to-transparent"></div>
         </div>
 
-        <Link href="/">
+        <Link href="/dashboard">
           <div className="icon flex h-8 w-8 flex-row">
             <IoIosSearch className="text-3xl text-gray-200" />
           </div>
         </Link>
-        <Link href="/">
+        <Link href="/location">
           <div className="icon flex h-8 w-8 flex-row">
             <IoLocationOutline className="text-3xl text-gray-200" />
           </div>

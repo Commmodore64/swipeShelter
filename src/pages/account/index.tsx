@@ -6,11 +6,10 @@ import { getServerAuthSession } from "~/server/auth";
 
 // Components
 //import Account from "~/components/dashboard/Account";
-import Home from "~/components/dashboard/home";
+import Home from "~/components/account/home";
 import TabBar from "~/components/dashboard/tabbar";
-// import Sidebar from "~/components/dashboard/Sidebar";
 
-const Account: NextPage = () => {
+const Dashboard: NextPage = () => {
   //   const [selectedOption, setSelectedOption] = useState("Home");
 
   //   const handleSidebarOptionClick = (option: string) => {
@@ -54,4 +53,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
-export default Account;
+export default Dashboard;
